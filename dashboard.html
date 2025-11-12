@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatSavePro Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header with Theme Toggle -->
+        <header class="dashboard-header">
+            <h1>📊 ChatSavePro Dashboard</h1>
+            <div class="header-controls">
+                <button id="themeToggle" class="theme-toggle" title="Toggle dark/light mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button id="refreshBtn" class="refresh-btn" title="Refresh dashboard data">
+                    <span class="refresh-icon">🔄</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Stats Overview -->
+        <section class="stats-overview">
+            <div class="stat-card" data-tooltip="Total scans performed">
+                <div class="stat-icon">📈</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="totalScans">0</div>
+                    <div class="stat-label">Total Scans</div>
+                </div>
+            </div>
+            
+            <div class="stat-card" data-tooltip="Scans performed today">
+                <div class="stat-icon">📅</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="todayScans">0</div>
+                    <div class="stat-label">Today</div>
+                </div>
+            </div>
+
+            <div class="stat-card" data-tooltip="Storage space used">
+                <div class="stat-icon">💾</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="storageUsage">0MB</div>
+                    <div class="stat-label">Storage</div>
+                </div>
+            </div>
+
+            <div class="stat-card" data-tooltip="Auto scan status">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-content">
+                    <div class="stat-value" id="autoScanStatus">ON</div>
+                    <div class="stat-label">Auto Scan</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <h3>🔍 Filters</h3>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="platformFilter" data-tooltip="Filter by platform">Platform:</label>
+                    <select id="platformFilter">
+                        <option value="all">All Platforms</option>
+                        <option value="ChatGPT">ChatGPT</option>
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="Telegram">Telegram</option>
+                        <option value="Discord">Discord</option>
+                        <option value="Twitter">Twitter</option>
+                        <option value="Web Page">Web Page</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="dateFilter" data-tooltip="Filter by date range">Date Range:</label>
+                    <select id="dateFilter">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">Last 7 Days</option>
+                        <option value="month">Last 30 Days</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="levelFilter" data-tooltip="Filter by scan level">Scan Level:</label>
+                    <select id="levelFilter">
+                        <option value="all">All Levels</option>
+                        <option value="light">Light</option>
+                        <option value="moderate">Standard</option>
+                        <option value="deep">Advanced</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="contentFilter" data-tooltip="Filter by content type">Content Type:</label>
+                    <select id="contentFilter">
+                        <option value="all">All Content</option>
+                        <option value="chats">Chats</option>
+                        <option value="articles">Articles</option>
+                        <option value="social">Social Media</option>
+                        <option value="docs">Documents</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="chart-container">
+                <h3>📊 Scan Distribution</h3>
+                <div class="chart" id="platformChart">
+                    <div class="chart-placeholder">
+                        <p>Platform distribution chart will appear here</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>📅 Daily Activity</h3>
+                <div class="chart" id="activityChart">
+                    <div class="chart-placeholder">
+                        <p>Daily activity chart will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Scans Table -->
+        <section class="scans-table-section">
+            <h3>🕒 Recent Scans</h3>
+            <div class="table-container">
+                <table class="scans-table">
+                    <thead>
+                        <tr>
+                            <th data-tooltip="Scan timestamp">Time</th>
+                            <th data-tooltip="Platform where scan was performed">Platform</th>
+                            <th data-tooltip="Scan level used">Level</th>
+                            <th data-tooltip="Page title">Title</th>
+                            <th data-tooltip="Scan duration">Duration</th>
+                            <th data-tooltip="Data size collected">Size</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scansTableBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Export Controls -->
+        <section class="export-section">
+            <h3>💾 Export Data</h3>
+            <div class="export-controls">
+                <select id="dashboardExportFormat">
+                    <option value="json">JSON</option>
+                    <option value="csv">CSV</option>
+                    <option value="pdf">PDF Report</option>
+                </select>
+                <button id="dashboardExportBtn" class="export-btn">Export Filtered Data</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Custom Tooltip Element -->
+    <div id="globalTooltip" class="tooltip"></div>
+
+    <script src="dashboard.js"></script>
+<script src="theme-manager.js"></script>
+</body>
+</html>

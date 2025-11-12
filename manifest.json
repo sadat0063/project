@@ -1,0 +1,82 @@
+{
+    "manifest_version": 3,
+    "name": "ChatSavePro - Advanced Export",
+    "version": "3.3.0",
+    "description": "Advanced chat data saver with multiple export formats including PDF, Excel, PowerPoint, ZIP and more",
+    
+    "permissions": [
+        "activeTab",
+        "storage",
+        "downloads",
+        "scripting"
+    ],
+    
+    "host_permissions": [
+        "https://chat.openai.com/*",
+        "https://chat.deepseek.com/*",
+        "https://web.telegram.org/*",
+        "https://web.whatsapp.com/*",
+        "https://messenger.com/*",
+        "https://discord.com/*",
+        "https://*.openai.com/*",
+        "https://*.deepseek.com/*"
+    ],
+
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    },
+
+    "content_scripts": [
+        {
+            "matches": [
+                "https://chat.openai.com/*",
+                "https://chat.deepseek.com/*",
+                "https://web.telegram.org/*",
+                "https://web.whatsapp.com/*",
+                "https://messenger.com/*",
+                "https://discord.com/*"
+            ],
+            "js": ["contentScript.js"],
+            "run_at": "document_idle"
+        }
+    ],
+
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "lib/*",
+                "modules/*",
+                "assets/*"
+            ],
+            "matches": [
+                "https://chat.openai.com/*",
+                "https://chat.deepseek.com/*",
+                "https://web.telegram.org/*",
+                "https://web.whatsapp.com/*",
+                "https://messenger.com/*",
+                "https://discord.com/*"
+            ]
+        }
+    ],
+
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "ChatSavePro - Advanced Export",
+        "default_icon": {
+            "16": "assets/icon16.png"
+            
+            
+        }
+    },
+
+    "icons": {
+        "16": "assets/icon16.png"
+        
+       
+    },
+
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+    }
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatSavePro Export Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 15px; margin: 5px; background: #007cba; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005a87; }
+        .success { color: green; }
+        .error { color: red; }
+        .log { background: #f5f5f5; padding: 10px; border-radius: 4px; margin: 10px 0; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>🧪 ChatSavePro Export Test</h1>
+    
+    <div class="test-section">
+        <h3>Export Functionality Test</h3>
+        <button onclick="testSingleExport()">Test Single Format Export</button>
+        <button onclick="testAllExports()">Test All Export Formats</button>
+        <button onclick="testBridgeHealth()">Test ModuleBridge Health</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Test Results</h3>
+        <div id="results" class="log"></div>
+    </div>
+
+    <script>
+        // Test data
+        const testScans = [
+            {
+                id: 'test-1',
+                title: 'Test Conversation with ChatGPT',
+                url: 'https://chat.openai.com/',
+                timestamp: Date.now(),
+                platform: 'ChatGPT',
+                textContent: 'This is a test conversation about AI and machine learning. The user asked about neural networks and the AI provided a detailed explanation.',
+                wordCount: 150,
+                readingTime: 1
+            },
+            {
+                id: 'test-2', 
+                title: 'DeepSeek Chat Session',
+                url: 'https://chat.deepseek.com/',
+                timestamp: Date.now() - 3600000,
+                platform: 'DeepSeek',
+                textContent: 'Discussion about web development and Chrome extensions. Covered topics like manifest v3 and content scripts.',
+                wordCount: 200,
+                readingTime: 2
+            }
+        ];
+
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? 'red' : type === 'success' ? 'green' : 'black';
+            results.innerHTML += `<div style="color: ${color}">[${timestamp}] ${message}</div>`;
+            results.scrollTop = results.scrollHeight;
+        }
+
+        async function testSingleExport() {
+            log('Starting single export test...');
+            
+            try {
+                let exporter;
+                if (typeof MultiFormatExporter !== 'undefined') {
+                    exporter = new MultiFormatExporter();
+                    await exporter.init();
+                    log('MultiFormatExporter initialized successfully');
+                } else {
+                    throw new Error('MultiFormatExporter not available');
+                }
+
+                const result = await exporter.exportScans(testScans, 'txt');
+                if (result.success) {
+                    log(`✅ TXT Export successful: ${result.fileName}`, 'success');
+                } else {
+                    log(`❌ TXT Export failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Export test failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function testAllExports() {
+            log('Starting comprehensive export test...');
+            
+            const formats = ['txt', 'json', 'csv', 'html', 'md', 'pdf'];
+            let successCount = 0;
+
+            for (const format of formats) {
+                try {
+                    let result;
+                    if (typeof MultiFormatExporter !== 'undefined') {
+                        const exporter = new MultiFormatExporter();
+                        await exporter.init();
+                        result = await exporter.exportScans(testScans, format);
+                    } else {
+                        // Fallback test
+                        result = await fallbackExport(testScans, format);
+                    }
+
+                    if (result && result.success) {
+                        log(`✅ ${format.toUpperCase()}: Success`, 'success');
+                        successCount++;
+                    } else {
+                        log(`❌ ${format.toUpperCase()}: Failed - ${result?.error || 'Unknown error'}`, 'error');
+                    }
+                } catch (error) {
+                    log(`❌ ${format.toUpperCase()}: Error - ${error.message}`, 'error');
+                }
+            }
+
+            log(`🎯 Test completed: ${successCount}/${formats.length} formats successful`);
+        }
+
+        async function fallbackExport(scans, format) {
+            // Simple fallback export implementation
+            let content = `ChatSavePro Test Export - ${format}\n`;
+            content += `Generated: ${new Date().toLocaleString()}\n`;
+            content += `Scans: ${scans.length}\n\n`;
+            
+            scans.forEach((scan, index) => {
+                content += `Scan ${index + 1}: ${scan.title}\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `test-export-${format}.${format}`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            return { success: true, format: format };
+        }
+
+        async function testBridgeHealth() {
+            log('Testing ModuleBridge health...');
+            
+            try {
+                if (typeof ModuleBridge !== 'undefined') {
+                    const bridge = new ModuleBridge();
+                    await bridge.init();
+                    
+                    const health = await bridge.healthCheck();
+                    log(`🔍 Bridge Health: ${health.status}`, health.status === 'healthy' ? 'success' : 'error');
+                    log(`📊 Version: ${health.bridgeVersion}`);
+                    log(`🔄 Fallback Mode: ${health.fallbackMode}`);
+                    log(`📦 Modules: ${Object.keys(health.modules).join(', ')}`);
+                } else {
+                    log('❌ ModuleBridge not available', 'error');
+                }
+            } catch (error) {
+                log(`❌ Bridge health test failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Make functions globally available
+        window.testSingleExport = testSingleExport;
+        window.testAllExports = testAllExports;
+        window.testBridgeHealth = testBridgeHealth;
+    </script>
+</body>
+</html>

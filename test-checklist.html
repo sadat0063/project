@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatSavePro Test Checklist</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .test-item { margin: 10px 0; padding: 10px; border: 1px solid #ddd; }
+        .passed { background: #d4edda; }
+        .failed { background: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>ChatSavePro Test Checklist</h1>
+    
+    <div class="test-item">
+        <input type="checkbox" onchange="toggleTest(this)">
+        <strong>پاپ‌آپ لود می‌شود</strong>
+        <ul>
+            <li>افزونه در Chrome نصب شده</li>
+            <li>آیکون در toolbar نمایش داده می‌شود</li>
+            <li>کلیک روی آیکون پاپ‌آپ باز می‌شود</li>
+        </ul>
+    </div>
+
+    <div class="test-item">
+        <input type="checkbox" onchange="toggleTest(this)">
+        <strong>آمار نمایش داده می‌شود</strong>
+        <ul>
+            <li>تعداد کل اسکن‌ها نمایش داده می‌شود</li>
+            <li>اسکن‌های امروز نمایش داده می‌شود</li>
+            <li>مصرف حافظه نمایش داده می‌شود</li>
+        </ul>
+    </div>
+
+    <div class="test-item">
+        <input type="checkbox" onchange="toggleTest(this)">
+        <strong>اسکن خودکار کار می‌کند</strong>
+        <ul>
+            <li>تب‌های مختلف را باز کنید</li>
+            <li>داده‌ها ذخیره می‌شوند</li>
+            <li>آمار به روز می‌شود</li>
+        </ul>
+    </div>
+
+    <div class="test-item">
+        <input type="checkbox" onchange="toggleTest(this)">
+        <strong>سیستم Export کار می‌کند</strong>
+        <ul>
+            <li>دکمه Export کلیک می‌شود</li>
+            <li>مدال Export باز می‌شود</li>
+            <li>فیلترها کار می‌کنند</li>
+            <li>فایل ذخیره می‌شود</li>
+        </ul>
+    </div>
+
+    <script>
+        function toggleTest(checkbox) {
+            const item = checkbox.parentElement;
+            item.className = checkbox.checked ? 'test-item passed' : 'test-item';
+        }
+    </script>
+</body>
+</html>

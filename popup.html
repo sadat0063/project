@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>ChatSavePro v3.1</title>
+  <style>
+    /* Notification Styles */
+    .notification {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 12px 16px;
+      border-radius: 4px;
+      color: white;
+      z-index: 10000;
+      max-width: 300px;
+      animation: slideIn 0.3s ease;
+      font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .notification.success { background: #4CAF50; }
+    .notification.error { background: #f44336; }
+    .notification.warning { background: #ff9800; }
+    .notification.info { background: #2196F3; }
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Format Options */
+    .format-option {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .format-option:hover {
+      background: #f5f5f5;
+      border-color: #2196F3;
+    }
+    .format-option input[type="radio"] {
+      margin-right: 10px;
+    }
+    .format-icon {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+    .format-name {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .format-desc {
+      color: #666;
+      font-size: 12px;
+    }
+    .format-category {
+      font-weight: bold;
+      margin: 15px 0 5px 0;
+      color: #333;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+  </style>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>ChatSavePro</h1>
+      <div class="version">v3.1.0 - Advanced Export</div>
+    </div>
+
+    <!-- Connection Status -->
+    <div class="connection-status">
+      <div class="status-dot online"></div>
+      <span id="connectionStatus">Connecting...</span>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-value" id="totalScans">0</span>
+        <span class="stat-label">Total Scans</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="deepScans">0</span>
+        <span class="stat-label">Deep Scans</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="liveScans">0</span>
+        <span class="stat-label">Live Scans</span>
+      </div>
+    </div>
+
+    <!-- Scan Controls -->
+    <div class="scan-controls">
+      <button id="deepScanBtn" class="btn btn-primary">
+        <span>🎯</span> Deep Scan
+      </button>
+      <button id="liveScanBtn" class="btn btn-secondary">
+        <span>🔄</span> Start Live
+      </button>
+      <button id="stopLiveScanBtn" class="btn btn-outline" style="display: none;">
+        <span>⏹️</span> Stop Live
+      </button>
+    </div>
+
+    <!-- Live Scan Status -->
+    <div class="live-scan-status">
+      Live Scan: <span id="liveScanStatus" style="color: #666;">OFF</span>
+    </div>
+
+    <!-- Settings -->
+    <div class="settings">
+      <div class="setting-item">
+        <span class="setting-label">Auto Live Scan</span>
+        <label class="toggle">
+          <input type="checkbox" id="autoLiveScanToggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Recent Scans -->
+    <div class="scans-section">
+      <h3 class="section-title">
+        <span>📋</span> Recent Scans
+      </h3>
+      <div id="scansList" class="scans-list">
+        <div class="empty-state">No scans yet. Perform a scan to get started.</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button id="exportBtn" class="btn btn-primary">
+        <span>📤</span> Export Data
+      </button>
+      <button id="clearDataBtn" class="btn btn-danger">
+        <span>🗑️</span> Clear Data
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      ChatSavePro v3.1.0 - Advanced Export
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div id="exportModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Export Data</h3>
+        <p class="modal-subtitle">Choose export format</p>
+      </div>
+      
+      <div id="exportFormats">
+        <!-- Format options will be inserted here by JavaScript -->
+      </div>
+      
+      <div class="modal-actions">
+        <button id="cancelExport" class="btn btn-outline">Cancel</button>
+        <button id="exportConfirm" class="btn btn-primary">Export</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear Data Modal -->
+  <div id="clearModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Clear All Data</h3>
+        <p class="modal-subtitle">This action cannot be undone</p>
+      </div>
+      
+      <p style="margin: 20px 0; color: #666; text-align: center;">
+        Are you sure you want to delete all scan data?
+      </p>
+      
+      <div class="modal-actions">
+        <button id="cancelClear" class="btn btn-outline">Cancel</button>
+        <button id="confirmClear" class="btn btn-danger">Clear All Data</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

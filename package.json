@@ -1,0 +1,17 @@
+{
+  "name": "chatsavepro",
+  "version": "1.5.0",
+  "description": "Advanced content scanning and export tool",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node dev-server.js"
+  },
+  "dependencies": {
+    "jspdf": "^2.5.1",
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.5"
+  }
+}

@@ -1,0 +1,578 @@
+/* ==================================================
+   ChatSavePro Popup Styles - v3.1 (Advanced Export)
+   ================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 400px;
+    min-height: 500px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #2c3e50;
+}
+
+.container {
+    padding: 20px;
+    background: white;
+    min-height: 500px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f1f3f4;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.header .version {
+    color: #7f8c8d;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Connection Status */
+.connection-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-dot.online {
+    background: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+}
+
+.status-dot.error {
+    background: #f44336;
+    box-shadow: 0 0 8px rgba(244, 67, 54, 0.6);
+}
+
+/* Stats Section */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.stat {
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    border-left: 4px solid #4CAF50;
+    transition: all 0.3s ease;
+}
+
+.stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.stat-value {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #7f8c8d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-secondary {
+    background: #2196F3;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #1976D2;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.btn-danger {
+    background: #f44336;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.btn-outline:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+/* Scan Controls */
+.scan-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.live-scan-status {
+    text-align: center;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Settings Section */
+.settings {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.setting-label {
+    flex: 1;
+    font-size: 13px;
+    color: #2c3e50;
+}
+
+/* Toggle Switch */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #4CAF50;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+}
+
+/* Recent Scans Section */
+.scans-section {
+    margin: 20px 0;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.scans-list {
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+}
+
+.scan-item {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f3f4;
+    transition: all 0.3s ease;
+}
+
+.scan-item:hover {
+    background: #f8f9fa;
+}
+
+.scan-item:last-child {
+    border-bottom: none;
+}
+
+.scan-type {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.scan-type.deep {
+    color: #4CAF50;
+}
+
+.scan-type.live {
+    color: #2196F3;
+}
+
+.scan-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: #7f8c8d;
+}
+
+.scan-platform {
+    font-weight: 500;
+}
+
+.scan-messages {
+    color: #666;
+}
+
+.scan-time {
+    color: #999;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: #999;
+    font-style: italic;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.modal-subtitle {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Export Format Styles */
+.format-category {
+    font-weight: 600;
+    margin: 20px 0 12px 0;
+    padding: 8px 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #4CAF50;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.format-option {
+    margin: 8px 0;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.format-option:hover {
+    background: #f8f9fa;
+    border-color: #4CAF50;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.format-option input[type="radio"] {
+    margin-right: 12px;
+}
+
+.format-option label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.format-icon {
+    font-size: 20px;
+    margin-right: 12px;
+    width: 30px;
+    text-align: center;
+}
+
+.format-name {
+    font-weight: 600;
+    margin-right: 15px;
+    min-width: 120px;
+    color: #2c3e50;
+}
+
+.format-desc {
+    color: #7f8c8d;
+    font-size: 13px;
+    flex: 1;
+}
+
+/* Selected state */
+.format-option input[type="radio"]:checked + label {
+    color: #4CAF50;
+}
+
+.format-option input[type="radio"]:checked ~ .format-option {
+    border-color: #4CAF50;
+    background: #f1f8e9;
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    justify-content: flex-end;
+}
+
+.modal-actions .btn {
+    min-width: 80px;
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    z-index: 1001;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.notification.success {
+    background: #4CAF50;
+}
+
+.notification.error {
+    background: #f44336;
+}
+
+.notification.warning {
+    background: #ff9800;
+}
+
+.notification.info {
+    background: #2196F3;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Scrollbar Styles */
+.scans-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scans-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.scans-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.scans-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Responsive Design */
+@media (max-width: 420px) {
+    body {
+        width: 380px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    .stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .scan-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Footer */
+.footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #f1f3f4;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 11px;
+}
